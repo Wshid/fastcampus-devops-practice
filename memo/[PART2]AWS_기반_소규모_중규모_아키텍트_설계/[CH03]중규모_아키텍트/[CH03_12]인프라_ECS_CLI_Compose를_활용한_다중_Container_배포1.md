@@ -1,0 +1,12 @@
+## [CH03_12] (인프라) ECS-CLI Compose를 활용한 Container 배포1
+- EC2를 하나 만들어 접속
+- requirements.txt
+  - uwsgi 추가
+- 이후 기존 실습에 있었던 Dockerfile 생성
+- uwsgi.ini 설정
+- nginx 관련 설정 진행
+- docker-compose.yml 추가
+  - aws상에서는 조금 문법이 다름
+  - `build`가 aws(fargate)에는 존재하지 않음
+  - https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/cmd-ecs-cli-compose-parameters.html
+- 기존과 동일한 환경 세팅 과정
