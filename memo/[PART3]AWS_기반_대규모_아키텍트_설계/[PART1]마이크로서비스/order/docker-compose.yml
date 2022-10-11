@@ -3,10 +3,10 @@ services:
   backend:
     build:
       context: .
-      dockerfile: dockerfile
-    command: 'python main.py'
+      dockerfile: Dockerfile
+    command: 'python manage.py runserver 0.0.0.0:8000'
     ports:
-      - 8001:5000
+      - 8000:8000
     volumes:
       - .:/app
     depends_on:
@@ -20,15 +20,16 @@ services:
     depends_on:
       - db
 
+
   db:
     image: mysql:5.7.22
     restart: always
     environment:
-      MYSQL_DATABASE: main
+      MYSQL_DATABASE: admin
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - .dbdata:/var/lib/mysql
+      - .dbdata:/var/lib/mysql # .dbdata라는 local 경로에 저장
     ports:
-      - 33067:3306
+      - 33066:3306
