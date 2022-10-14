@@ -1,0 +1,15 @@
+## [CH01_24] (인프라) AWS Code Pipeline을 활용한 CD 파이프라인 구축
+- AWS - Code Pipeline 접속
+- 파이프라인 설정
+- 고급 설정 - 사용자 지정 위치
+- 버킷 선택(기본값)
+- 소스공급자 - Github(버전1)
+  - 코드가 트리거되는 상황 정의
+- Github 연결
+- 레포지토리 선택
+- 브랜치 이름 선택
+- 변경 감지 옵션: Github webhook
+- 빌드 스테이지 건너뛰기
+- 배포 스테이지 추가: AWS Elastic Beanstalk
+- 어플리케이션이름, 환경 이름: sample, sample-env
+- 파이프라인 생성
