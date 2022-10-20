@@ -1,4 +1,4 @@
-## [CH02_14] (AWS Lambda) Lamb da Step Functions 구현
+## [CH02_17] (AWS Lambda) Lambda Step Functions 구현
 
 ### 실습
 - Step Functions 검색
