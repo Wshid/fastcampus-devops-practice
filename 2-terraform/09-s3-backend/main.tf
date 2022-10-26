@@ -1,11 +1,18 @@
+# s3 backend를 사용하기 위한 옵션
 terraform {
   backend "s3" {
+    # global unique한 값을 지정, 본인이 직업 s3에 접근하여 생성 필요
+    # AWS - S3 - 버킷만들기로 수행
     bucket = "fastcampus-devops-terraform"
+    # bucket의 file path 유사 역할
     key    = "s3-backend/terraform.tfstate"
+    # bucket이 위치한 region 선택 필요
     region = "ap-northeast-2"
   }
 }
 
+# 동일한 사용자일경우 aws provider에 동일한 설정 사용
+# 
 provider "aws" {
   region = "ap-northeast-2"
 }
