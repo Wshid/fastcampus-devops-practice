@@ -11,6 +11,7 @@ locals {
 ###################################################
 
 data "terraform_remote_state" "this" {
+  # remote_states를 리스트로 가져와 활용
   for_each = local.config.remote_states
 
   backend = "remote"

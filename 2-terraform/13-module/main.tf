@@ -3,6 +3,7 @@ provider "aws" {
 }
 
 module "account" {
+  # account 모듈 사용
   source = "./account"
 
   name = "posquit0-fastcampus"
@@ -19,6 +20,7 @@ module "account" {
   }
 }
 
+# account module의 output값 사용
 output "id" {
   value = module.account.id
 }

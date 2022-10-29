@@ -5,6 +5,7 @@ This module creates following resources.
 - `aws_iam_account_alias`
 - `aws_iam_account_password_policy`
 
+<!-- terraform docs에 의해 자동 생성되는 내용 --> 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

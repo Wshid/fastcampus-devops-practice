@@ -1,3 +1,4 @@
+# 타 모듈에서 참조 가능한 내용들을 지정
 output "id" {
   description = "The AWS Account ID."
   value       = data.aws_caller_identity.this.account_id

@@ -1,3 +1,4 @@
+# aws account id를 가져올 수 있음
 data "aws_caller_identity" "this" {}
 
 
@@ -5,6 +6,7 @@ data "aws_caller_identity" "this" {}
 # AWS Account Alias
 ###################################################
 
+# account 등록
 resource "aws_iam_account_alias" "this" {
   account_alias = var.name
 }
@@ -14,6 +16,7 @@ resource "aws_iam_account_alias" "this" {
 # Password Policy for AWS Account and IAM Users
 ###################################################
 
+# 변수로 받았던 password_policy를 지정
 resource "aws_iam_account_password_policy" "this" {
   minimum_password_length        = var.password_policy.minimum_password_length
   require_numbers                = var.password_policy.require_numbers

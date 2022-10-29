@@ -1,8 +1,10 @@
 variable "name" {
+  # aws account_id의 별칭 지정
   description = "The name for the AWS account. Used for the account alias."
   type        = string
 }
 
+# account, iam user의 pw 정책
 variable "password_policy" {
   description = "Password Policy for the AWS account."
   type = object({

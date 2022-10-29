@@ -3,6 +3,7 @@ provider "aws" {
 }
 
 data "terraform_remote_state" "network" {
+  # 디렉터리 기준, remote repository 지정
   backend = "local"
 
   config = {
@@ -10,6 +11,7 @@ data "terraform_remote_state" "network" {
   }
 }
 
+# remote module에서 outputs가 지정 되어 있어야 참조 가능
 locals {
   vpc_name      = data.terraform_remote_state.network.outputs.vpc_name
   subnet_groups = data.terraform_remote_state.network.outputs.subnet_groups
