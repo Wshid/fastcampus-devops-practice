@@ -24,11 +24,14 @@ locals {
     "Project" = "provisioner-userdata"
   }
 }
+# 계정 생성시 기본 vpc를 사용
 resource "aws_default_vpc" "default" {
   tags = {
     Name = local.vpc_name
   }
 }
+
+# 22, 80 port
 
 module "security_group" {
   source  = "tedilabs/network/aws//modules/security-group"
@@ -79,8 +82,12 @@ module "security_group" {
 resource "aws_instance" "userdata" {
   ami           = data.aws_ami.ubuntu.image_id
   instance_type = "t2.micro"
+  # ssh key name
   key_name      = "fastcampus"
 
+  # EOT: multiline string
+  # bash shell script, yaml file 등에서 활용 가능
+  # user_data의 내용이 수정되게 되면, apply시 새로운 리소스 생성됨(현업에서 유의)
   user_data = <<EOT
 #!/bin/bash
 sudo apt-get update
@@ -105,24 +112,27 @@ EOT
 #   ami           = data.aws_ami.ubuntu.image_id
 #   instance_type = "t2.micro"
 #   key_name      = "fastcampus"
-#
+
 #   vpc_security_group_ids = [
 #     module.security_group.id,
 #   ]
-#
+
 #   tags = {
 #     Name = "fastcampus-provisioner"
 #   }
-#
+
+#   # remote machine provisioner
 #   provisioner "remote-exec" {
 #     inline = [
 #       "sudo apt-get update",
 #       "sudo apt-get install -y nginx",
 #     ]
-#
+#     # password, private key 인증을 해야하나,
+#     # 현업에서는 ssh-agent 운영체제를 사용하여, 코드상에 보안 정보가 남지 않게 할 수 있음
 #     connection {
 #       type = "ssh"
 #       user = "ubuntu"
+#       # provisioner에서만 사용 가능한 구문
 #       host = self.public_ip
 #     }
 #   }
@@ -147,6 +157,10 @@ resource "aws_instance" "provisioner" {
   }
 }
 
+# null_resource, https://registry.terraform.io/providers/hashicorp/null/latest/docs
+# provisioner를 사용할 때 활용하는 트릭
+# 해당 파일들의 내용이 변경되면 trigger에 해당
+# triggers 내부 내용이 변경되면 force replace 하기 위함
 resource "null_resource" "provisioner" {
   triggers = {
     insteance_id = aws_instance.provisioner.id
@@ -159,6 +173,7 @@ resource "null_resource" "provisioner" {
   }
 
   provisioner "file" {
+    # local 경로
     source      = "${path.module}/files/index.html"
     destination = "/tmp/index.html"
 
@@ -180,6 +195,7 @@ resource "null_resource" "provisioner" {
   }
 
   provisioner "remote-exec" {
+    # /var/www... 권한은 root 권한이 필요하기 때문
     inline = [
       "sudo cp /tmp/index.html /var/www/html/index.html"
     ]
