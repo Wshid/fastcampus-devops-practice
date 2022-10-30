@@ -1,0 +1,15 @@
+## [CH03_06] 프로비저너(Provisioner)
+- https://developer.hashicorp.com/packer/docs/provisioners
+- `2-packer/04-provisioner/main.pkr.hcl`
+- Shell, Shell(Local)
+- File
+  - local에서 remote로 파일 업로드
+- Breakpoint
+  - 디버깅 목적으로 활용 가능
+  - 사용자가 ok하기 전까지 멈춤
+- Ansible
+  - Ansible(Remote)
+  - Ansible(Local)
+- packer log 상에서 빨간색 로그가 생성되면
+  - 확인을 하고 넘어갈 것(에러 로그)
+- provisioner는 **정해진 순서**대로 수행

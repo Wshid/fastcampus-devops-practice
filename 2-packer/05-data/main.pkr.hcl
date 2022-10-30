@@ -14,6 +14,8 @@ build {
   provisioner "shell" {
     inline = [
       "sudo apt-get update",
+      # amazon secret manager에 dummy data 필요
+      # e.g. key:test, value:123
       "echo Secret is ${data.amazon-secretsmanager.fastcampus.value}",
     ]
   }
