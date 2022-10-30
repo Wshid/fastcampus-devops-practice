@@ -1,0 +1,13 @@
+## [CH03_03] 패커 HCL 기초 문법
+- Packer docs
+  - http://developer.hashicorp.com/packer/docs/templates
+- terraform와 동일한 목록
+  - locals: 지역 변수
+  - variables: 입력 변수
+  - packer: 의존성, 버전 (=terraform)
+  - data: data source
+- build는 nested한 설정 존재
+  - source
+  - provisioner
+  - post-processor
+  - post-processors

@@ -34,6 +34,7 @@ module "sg__openvpn" {
     {
       id          = "openvpn/all"
       protocol    = "udp"
+      # open vpn port
       from_port   = 1194
       to_port     = 1194
       cidr_blocks = ["0.0.0.0/0"]

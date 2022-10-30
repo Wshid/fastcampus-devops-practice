@@ -30,6 +30,7 @@ resource "aws_instance" "private" {
 }
 
 locals {
+  # 파일 경로, context를 받아 렌더링
   openvpn_userdata = templatefile("${path.module}/files/openvpn-userdata.sh", {
     vpc_cidr  = local.vpc.cidr_block
     public_ip = aws_eip.openvpn.public_ip
@@ -45,6 +46,7 @@ resource "aws_instance" "openvpn" {
   subnet_id     = local.subnet_groups["public"].ids[0]
   key_name      = "fastcampus"
 
+  # user_data로 구성
   user_data = local.openvpn_userdata
 
   associate_public_ip_address = false
