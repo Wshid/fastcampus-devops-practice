@@ -7,6 +7,7 @@ build {
 
   provisioner "shell" {
     inline = [
+      # user data로 지정된 데이터를 기다리고, 이후 진행
       "cloud-init status --wait",
     ]
     execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"

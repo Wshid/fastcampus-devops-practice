@@ -69,6 +69,7 @@ module "sg__grafana" {
       protocol    = "tcp"
       from_port   = 3000
       to_port     = 3000
+      # VPN 내부에서는 접근 되도록 설정
       cidr_blocks = ["10.0.0.0/8"]
       description = "Allow Grafana within VPC CIDRs."
     },

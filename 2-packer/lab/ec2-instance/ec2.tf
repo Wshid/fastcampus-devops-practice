@@ -8,6 +8,7 @@ data "aws_ami" "fastcampus" {
 
   filter {
     name   = "name"
+    # grok 문법을 사용하여 openvpn, grafana의 최신 AMI를 가져오도록 
     values = ["ubuntu/20.04/amd64/${each.key}-*"]
   }
 
@@ -16,10 +17,12 @@ data "aws_ami" "fastcampus" {
     values = ["hvm"]
   }
 
+  # terraform을 수행하는 aws account와 동일 계정
   owners = ["self"]
 }
 
 resource "aws_instance" "grafana" {
+  # grafana의 최신 ami
   ami           = data.aws_ami.fastcampus["grafana"].image_id
   instance_type = "t2.micro"
   subnet_id     = local.subnet_groups["private"].ids[0]
@@ -63,6 +66,8 @@ resource "aws_instance" "openvpn" {
     Name = "${local.vpc.name}-openvpn"
   }
 
+  # EIP를 이용, 코드가 변경되지 않더라도, aws instance를 계속 재생성하려고 할 것
+  # 값이 변경되더라도 terraform apply시 무시하기
   lifecycle {
     ignore_changes = [
       associate_public_ip_address,
