@@ -6,17 +6,22 @@
 # 작업 (Task): 앤서블의 수행 단위. 애드혹 명령어는 한 번에 단일 작업 수행.
 # 모듈 (Module): 앤서블이 실행하는 코드 단위. 작업에서 모듈을 호출함.
 # 콜렉션 (Collection): 모듈의 집합.
+# Playbook: set of play
+# Play들의 절차를 가진 문서
 
 - name: Play 1
   hosts: ubuntu
   tasks:
+  # 하나의 작업(task)
   - name: "Task 1: Execute command"
+    # 모듈, 마치 함수
     command: uptime
 
   - name: "Task 2: Execute script"
     script: task2.sh
 
   - name: "Task 3: Install package"
+    # 모듈, 마치 함수(e.g. apt)
     apt:
       name: nginx
       state: present

@@ -4,6 +4,7 @@
   hosts: ubuntu
   become: true
   tasks:
+  # nginx stop 이후 제거
   - name: "Ensure nginx service stopped"
     service:
       name: nginx
@@ -29,4 +30,5 @@
       state: absent
 
   - name: "Disable Nginx repository provided by Amazon"
+    # nginx repository 제거
     command: "amazon-linux-extras disable nginx1"

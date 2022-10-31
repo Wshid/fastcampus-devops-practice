@@ -37,6 +37,7 @@ locals {
 }
 
 resource "aws_instance" "amazon" {
+  # aws_instance 2개 생성
   count = 2
 
   ami           = data.aws_ami.amazon.image_id

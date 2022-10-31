@@ -1,0 +1,20 @@
+## [CH04_02] 인벤토리(Inventory)
+- ec2 기반 2개, ubuntu 기반 2개 instance 생성
+- Inventory
+  - 대상 서버 호스트를 관리하는 파일
+  - 그룹 기능 지원
+- 정의 하는 방법에 따라
+  - **static inventory**
+    - 가장 기본
+  - dynamic inventory
+    - 동적으로 관리
+    - AWS Cloud 등을 활용할때 ip가 변경됨
+    - 이때 활용 가능
+- 인벤토리 파일의 확장자는 정해져 있지 않음
+  - 실습상에서는 `.inv`로 정의
+- `alias.inv` 별칭 지정
+- `simple.inv`에서는 `[all]`로 전체 지정 가능
+- `vars.inv`내에
+  - 원격 `ssh`명령을 수행할때 사용할 유저 정의 가능
+- `[linux:children]`
+  - children 하위 그룹

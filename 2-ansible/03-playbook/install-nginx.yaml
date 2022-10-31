@@ -1,7 +1,8 @@
 ---
-
+# 첫번째 Play
 - name: Install Nginx on Ubuntu
   hosts: ubuntu
+  # become root 권한을 주는 옵션
   become: true
   tasks:
   - name: "Install Nginx"
@@ -20,9 +21,13 @@
   become: true
   tasks:
   - name: "Enable Nginx repository provided by Amazon"
+    # nginx repository 활성화(yum을 위해)
+    # 기본적으로 멱등성이 보장되지 x 명령어
+    ## 멱등성을 보장하기 위해선 추후 명령 추가 필요
     command: "amazon-linux-extras enable nginx1"
 
   - name: "Install Nginx"
+    # centos기반이라, yum을 사용
     yum:
       name: nginx
       state: present
