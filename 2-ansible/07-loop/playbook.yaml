@@ -24,9 +24,12 @@
   tasks:
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html
   - name: "Create groups"
+    # ubuntu에서 사용자 그룹 생성
     group:
+      # keyword, 반복문에서 사용할 단어(backend, fronted, devops)
       name: "{{ item }}"
       state: "present"
+    # 3가지 요소 정의
     with_items:
     - backend
     - frontend
@@ -34,6 +37,7 @@
 
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
   # - name: "Create a user"
+      # 사용자 추가 문법
   #   user:
   #     name: "{{ item }}"
   #     comment: "FastCampus DevOps"
@@ -53,9 +57,12 @@
       shell: "{{ item.shell }}"
       comment: "FastCampus DevOps"
       state: "present"
+    # 위에서 변수로 정의했던 users 리스트를 사용
     loop: "{{ users }}"
 
   - name: "Debug data"
     debug:
       msg: "{{ item.key }}: {{ item.value }}"
+    # Jinja2 문법, {{ exp | func }}, tags를 파라미터로 dict2items 함수 수행
+    # dict 형태의 list로 반화
     loop: "{{ tags | dict2items }}"

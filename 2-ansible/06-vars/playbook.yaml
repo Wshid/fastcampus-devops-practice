@@ -3,6 +3,7 @@
 - name: Example
   hosts: ubuntu
   become: true
+  # playbook 파일 내에서 정의하는 방법
   vars:
     user_name: "posquit0"
     user_comment: "from playbook vars"

@@ -42,6 +42,7 @@
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
       mode: '0644'
+    # 이벤트 트리거 가능, 핸들러 이름을 제공, 배열 형태로 제공 가능
     notify:
     - Restart Nginx
 
@@ -52,6 +53,7 @@
       state: started
 
   handlers:
+  # 해당 핸들러 진행
   - name: Restart Nginx
     service:
       name: nginx

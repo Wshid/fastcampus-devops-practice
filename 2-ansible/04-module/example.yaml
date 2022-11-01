@@ -6,14 +6,19 @@
   tasks:
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
   - name: "Create a user"
+    # 사용자와 관련한 연산 수행, 위 docs에서 자세한 내용 확인 가능
+    # 파타미터 전달방법 1: 띄어쓰기
     user: "name=fastcampus shell=/bin/bash"
 
   - name: "Hello World"
+    # 파타미터 전달방법 2: 단일 명령어 (free form argument)
     command: "echo 'Hello World!'"
 
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html
   - name: "Add DNS server to resolv.conf"
+    # 특정 라인이 있는지 확인 후, upsert
     lineinfile:
+      # 파타미터 전달방법 3: yaml의 key,value를 통해 파라미터 전달
       path: /etc/resolv.conf
       line: 'nameserver 8.8.8.8'
 
@@ -26,12 +31,19 @@
 
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/posix/synchronize_module.html
   - name: "Upload web directory"
+    # rsync, aws s3 sync 명령어와 유사
     synchronize:
+      # local directory
       src: files/html/
+      # remote
       dest: /var/www/html
+      # rsync archive flag on
       archive: true
+      # 전체 디렉터리, 파일의 checksum 확인
       checksum: true
+      # 하위 디렉터리까지 선택
       recursive: true
+      # remote 삭제가 필요할 경우 삭제
       delete: true
 
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html
@@ -45,6 +57,7 @@
 
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_module.html
   - name: "Ensure nginx service started"
+    # nginx 대몬이 서비스로 수행되게끔 하기 위함
     service:
       name: nginx
       state: started
