@@ -1,5 +1,6 @@
 terraform {
   backend "remote" {
+    # organization, workspace.name 변경 필요
     hostname     = "app.terraform.io"
     organization = "fastcampus-devops"
 

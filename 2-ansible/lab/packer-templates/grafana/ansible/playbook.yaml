@@ -1,4 +1,5 @@
 ---
+# local에서 수행하는 파일(ec2)
 - name: "Ready to run Grafana"
   hosts: localhost
   become: true
@@ -19,6 +20,7 @@
     - curl
     - git
 
+  # docker에 필요한 패키지 설치
   - name: "Install required system packages for Docker"
     apt:
       name: "{{ item }}"
@@ -28,7 +30,7 @@
     - curl
     - gnupg
     - lsb-release
-
+  # gpg 서명키 추가
   - name: Add Docker GPG apt Key
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
@@ -48,17 +50,20 @@
       state: latest
       update_cache: true
 
+  # ubuntu 사용자 추가
   - name: Add user to docker group
     user:
       name: "ubuntu"
       groups: docker
       append: true
 
+  # ansible로 매니징 하기 위해 python 패키지 설치
   - name: Install docker Python Package
     pip:
       name: docker
       state: present
 
+  # docker로 grafana 띄우기
   - name: Run Grafana container on Docker
     community.docker.docker_container:
       name: grafana
@@ -66,6 +71,9 @@
       restart_policy: unless-stopped
       ports:
       - "3000:3000"
+      # -d, daemon 모드로 실행
       detach: true
+      # deprecated된 메세지를 보지 않게 하기 위함
       container_default_behavior: compatibility
+      # container가 수행되도록 설정
       state: started

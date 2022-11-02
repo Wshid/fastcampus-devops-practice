@@ -16,6 +16,7 @@
     pip:
       name:
       - "virtualenv"
+      # ansible에서 ipaddr를 활용하기 위함
       - "netaddr"
 
   - name: "Install Ansible"

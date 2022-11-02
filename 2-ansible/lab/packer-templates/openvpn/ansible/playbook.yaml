@@ -3,12 +3,14 @@
   hosts: localhost
   become: true
   vars:
+    # ec2 메타 데이터를 통해 얻을 수 있는 변수중 하나
     openvpn_server_cn: "{{ ansible_ec2_public_ipv4 }}"
 
   tasks:
   - name: "Gather EC2 Instance Metadata"
     amazon.aws.ec2_metadata_facts: {}
 
+  # VPC에 필요한 변수 설정
   - name: "Set VPC CIDR"
     set_fact:
       vpc_cidr: "{{ (ansible_facts | dict2items | selectattr('key', 'match', '^ec2_network_interfaces_macs_.*_vpc_ipv4_cidr_block$') | map(attribute='value'))[0] }}"
@@ -72,10 +74,16 @@
       name: docker
       state: present
 
+  # OpenVPN을 docker상으로 띄우기
   - name: Run OpenVPN container on Docker
     community.docker.docker_container:
       name: openvpn
       image: wheelybird/openvpn-ldap-otp:v1.4
+      # restart_policy
+      # unless_stopped: ec2 재시작을 하더라도 실행
+      # always: 재시작을 하더라도 실행은 보장하지 X
+      # openvpn의 경우 ami가 어떤 네트워크 값으로 띄워짐에 따라 vpc 변수가 달라지기 때문
+      # 그에 따라 수동 실행이 필요하기 때문에 always로 설정
       restart_policy: always
       env:
         OVPN_SERVER_CN: "{{ openvpn_server_cn }}"
@@ -89,26 +97,36 @@
       - "1194:1194/udp"
       capabilities:
       - NET_ADMIN
+      # 데이터 보존 설정
       volumes:
       - openvpn-data:/etc/openvpn
       detach: true
       container_default_behavior: compatibility
+      # ansible 변수(openvpn_create_client_config), 해당 변수가 없다면 false 설정(default),
+      # ternary: ture, false에 따라 값 리턴
+      # present: docker container를 생성은 하나 실행은 하지 X, 중지된 상태
       state: "{{ openvpn_create_client_config | default(false) | ternary('started', 'present') }}"
 
   - name: Get OpenVPN client configurations
+    # docker_container_exec: docker exec 명령어와 동일
     community.docker.docker_container_exec:
       container: openvpn
       command: show-client-config
+    # 해당 값을 result에 저장
     register: result
+    # until, retries, delay: 반복문
+    # until이 true일때까지 수행(아래 리스트 조건에 부합할 경우)
     until:
-    - result.rc == 0
-    - '"END PRIVATE KEY" in result.stdout'
+    - result.rc == 0 # return == 0 성공시
+    - '"END PRIVATE KEY" in result.stdout' # 표준 출력에서 해당 문자열이 출력될 경우
     retries: 100
+    # 한 번 실패시 10초를 기다리고 retry
     delay: 10
     when: openvpn_create_client_config | default(false)
 
   - name: Save Client Configurations
     copy:
+      # 이전 단계의 결과를 fastcampus.ovpn 파일 생성
       content: "{{ result.stdout }}"
       dest: /opt/fastcampus.ovpn
     when: openvpn_create_client_config | default(false)

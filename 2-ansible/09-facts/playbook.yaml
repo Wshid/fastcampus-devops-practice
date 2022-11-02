@@ -3,10 +3,15 @@
 - name: Prepare Amazon Linux
   hosts: amazon
   become: true
+  # facts를 수집하고 싶지 않을 때
+  # e.g. 대규모 시스템 관리시 성능 향상을 위해
+  # e.g. 실험적인 환경에서 ansible 사용 준비
+  # e.g. command, shell, row 등을 Prepare mode에서 사용시
   gather_facts: false
   tasks:
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
   - name: "Install python on Amazon Linux"
+    # yum 조차도 python 패키지 필요
     yum:
       name: "python3"
       state: "present"
@@ -28,5 +33,6 @@
   tasks:
   # Docs: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
   - name: "Debug Ansible facts"
+    # ansible facts 확인
     debug:
       var: ansible_facts

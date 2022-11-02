@@ -1,6 +1,7 @@
 ---
 
 - name: Example
+  # amazon, linux 모두를 대상으로 함
   hosts: all
   become: true
   vars:
@@ -32,12 +33,15 @@
       comment: "FastCampus DevOps"
       state: "present"
     loop: "{{ users }}"
+    # 조건문 키워드 when, item.enabled
+    # Amazon linux인 경우에 대상
     when: item.enabled and (ansible_facts["distribution"] == "Amazon")
 
   - name: "Show items between 10 and 100"
     debug:
       var: item
     loop: [ 0, 192, 154, 456, 7, 2, -1, 55, 234]
+    # list 형태로 전달시, AND로 연접(10 <= item <= 100)
     when:
     - item >= 10
     - item <= 100
@@ -46,10 +50,13 @@
     debug:
       var: item
     loop: [ 0, 192, 154, 456, 7, 2, -1, 55, 234]
+    # or문 사용
     when:
     - (item < 10) or (item > 100)
 
+  # 현업에서 많이 쓰이는 방식, Ubuntu 배포판에 따라 분기
   - name: "Install Packages on Ubuntu"
+    # debian 계열에만 적용
     apt:
       name: "{{ item }}"
       update_cache: true
@@ -58,10 +65,12 @@
     - git
     - curl
     - htop
+    # 배포판이 Ubuntu인경우에만 대응
     when:
     - ansible_facts['distribution'] == 'Ubuntu'
 
   - name: "Install Packages on Amazon Linux"
+    # redhat 계열 명령어
     yum:
       name: "{{ item }}"
       state: "present"
@@ -74,9 +83,11 @@
 
   - name: "Print users"
     command: "cut -d: -f1 /etc/passwd"
+    # 유저 목록을 users에 등록
     register: users
 
   - name: "Is there claud"
     debug:
       msg: "There is no claud"
+    # users의 표준 출력에서 claud를 찾지 못할때 There is no claud 출력
     when: users.stdout.find('claud') == -1

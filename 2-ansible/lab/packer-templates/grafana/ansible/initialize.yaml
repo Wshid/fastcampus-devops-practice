@@ -4,6 +4,7 @@
   become: true
 
   tasks:
+  # python 세팅 작업
   - name: "Install pip"
     apt:
       name:
@@ -13,6 +14,7 @@
       update_cache: yes
 
   - name: "Install Dependencies"
+    # python 패키지 설치
     pip:
       name:
       - "virtualenv"

@@ -14,7 +14,11 @@
       var: ansible_facts
 
   - name: "Set VPC CIDR"
+    # set_facts: built-in command, jinja template extension 결과를 local parameter 정의
     set_fact:
+      # dict2items: dict -> list
+      # selectattr: key가 정규식과 일치하는지
+      # map: 원소의 attribute를 가져옴
       vpc_cidr: "{{ (ansible_facts | dict2items | selectattr('key', 'match', '^ec2_network_interfaces_macs_.*_vpc_ipv4_cidr_block$') | map(attribute='value'))[0] }}"
 
   - name: "Debug VPC CIDR"
@@ -22,11 +26,18 @@
       var: vpc_cidr
 
   - name: "Set VPC facts"
+    # 중간변수 정의
     set_fact:
+      # ipaddr: vpc_cidr에서 두번째 ip를 반환(e.g. vpc_cidr: 10.222.0.0/16 -> 10.222.0.2/16)
+      # ipaddr(address): 10.222.0.2/16 -> 10.222.0.2
       vpc_dns_server: '{{ vpc_cidr | ipaddr(2) | ipaddr("address") }}'
+      # ipaddr(network): 10.222.0.0
       vpc_network: '{{ vpc_cidr | ipaddr("network") }}'
+      # ipaddr(network): 255.255.0.0
       vpc_netmask: '{{ vpc_cidr | ipaddr("netmask") }}'
-
+# ipaddr를 사용하기 위해 의존성 필요
+# ipaddr filter, python library의 netaddr 모듈이 필요
+# pip install netaddr 필요
   - name: "Debug variables"
     debug:
       var: vars

@@ -2,5 +2,6 @@ context: {}
 
 remote_states:
   "network":
+    # 변경 필요
     organization: "fastcampus-devops"
     workspace: "terraform-lab-network"
