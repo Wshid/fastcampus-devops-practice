@@ -22,7 +22,9 @@ locals {
 
 resource "aws_instance" "demo" {
   ami           = data.aws_ami.ubuntu.image_id
+  # minikube 사용 요건을 만족하는 인스턴스 타입
   instance_type = "t3.small"
+  # 실제 현업에서는 private을 사용(보안상)
   subnet_id     = local.subnet_groups["public"].ids[0]
   key_name      = "fastcampus"
 
@@ -31,6 +33,7 @@ resource "aws_instance" "demo" {
     module.sg.id,
   ]
 
+  # 하드디스크 용량 20G 이상 필요
   root_block_device {
     volume_size = 20
     volume_type = "gp3"
@@ -54,6 +57,7 @@ resource "null_resource" "provisioner" {
     install_minikube = filemd5("${path.module}/files/install-minikube.sh")
   }
 
+  # 6가지 스크립트 실행
   provisioner "remote-exec" {
     scripts = [
       "${path.module}/files/update-apt.sh",
