@@ -10,6 +10,7 @@ docker run \
 docker run \
   -d \
   --name fastcampus-nginx \
+  # 볼륨 컨테이너 마운트
   --volumes-from web-volume \
   -p 80:80 \
   nginx
