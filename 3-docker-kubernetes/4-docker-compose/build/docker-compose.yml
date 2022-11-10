@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+  # web은 현재디렉터리에서 빌드, redis는 aline 이미지 활용
   web:
     build: .
     ports:

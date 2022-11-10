@@ -1,20 +1,29 @@
 version: '3.9'
 
+# 대부분 docker run에서 활용하는 명령어
 services:
   db:
     image: mysql:5.7
+    # 볼륨 마운트 지정
     volumes:
     - db:/var/lib/mysql
+    # 재시작 전략, always: 컨테이너 에러발생시 재시작
     restart: always
+    # 환경변수 전달(배열을 통한 방법 및 key:value 형태로 지정 가능)
     environment:
     - MYSQL_ROOT_PASSWORD=wordpress
     - MYSQL_DATABASE=wordpress
     - MYSQL_USER=wordpress
     - MYSQL_PASSWORD=wordpress
+    # 특정 네트워크 연결, 여러개 지정 가능
     networks:
     - wordpress
 
   wordpress:
+    # 컨테이너 실행 순서 정의
+    ## db 이후에 수행하도록
+    ## 실행되었음을 보장하나, 중지되었음을 보장하지 않음
+    ## 만약 이를 해결하려면, entrypoint내 스크립트를 실행시켜, 실제 db가 준비되었는지를 주기적으로 체크 이후 동작해야 함
     depends_on:
     - db
     image: wordpress:latest
@@ -30,7 +39,10 @@ services:
     - wordpress
 
 volumes:
+  # db 볼륨 정의, 기본 도커 볼륨 활용
+  ## 다른 드라이버 옵션 지정 가능
   db: {}
 
 networks:
+  # wordpress 네트워크 정의, 기본 브릿지 네트워크 사용
   wordpress: {}

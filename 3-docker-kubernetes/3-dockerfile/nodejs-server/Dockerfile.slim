@@ -7,6 +7,8 @@
 #   docker run --rm -it --name nodejs-server nodejs-server
 #
 
+## slim image를 사용
+## docker build --force-rm -t nodejs-server:slim -f Dockerfile.slim .
 FROM node:16-slim
 LABEL maintainer="FastCampus Park <fastcampus@fastcampus.com>"
 LABEL description="Simple server with Node.js"
