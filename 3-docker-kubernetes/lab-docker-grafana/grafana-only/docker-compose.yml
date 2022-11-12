@@ -3,13 +3,18 @@ version: '3.9'
 services:
   grafana:
     image: grafana/grafana:8.2.2
+    # unless-stopped: 서버가 재시작 되더라도 container를 재시작
+    # always: 컨테이너가 실패하는 경우 재시작
     restart: unless-stopped
     environment:
+      # 플러그인 설치
       GF_INSTALL_PLUGINS: grafana-clock-panel
     ports:
     - 3000:3000
     volumes:
+    # 호스트 경로의 파일을 컨테이너 경로에 ro로 마운트
     - ./files/grafana.ini:/etc/grafana/grafana.ini:ro
+    # 로컬 데이터 저장 경로 마운트
     - grafana-data:/var/lib/grafana
     logging:
       driver: "json-file"

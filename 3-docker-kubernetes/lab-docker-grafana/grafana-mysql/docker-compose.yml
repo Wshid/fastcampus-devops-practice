@@ -10,6 +10,7 @@ services:
       MYSQL_USER: grafana
       MYSQL_PASSWORD: grafana
     volumes:
+    # docker-volume을 사용하여 연결
     - mysql-data:/var/lib/mysql
     logging:
       driver: "json-file"
@@ -36,5 +37,6 @@ services:
         max-file: "10"
 
 volumes:
+  # docker-volume 생성
   mysql-data: {}
   grafana-data: {}
