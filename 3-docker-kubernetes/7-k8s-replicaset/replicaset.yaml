@@ -3,13 +3,17 @@ kind: ReplicaSet
 metadata:
   name: hello
 spec:
+  # replicaset option
   replicas: 3
   selector:
     matchLabels:
+    # app: hello의 레이블 관리(3개로 유지)
       app: hello
+  # replicaset이 만드는 pod template(metadata, spec)
   template:
     metadata:
       name: hello
+      # app: hello의 레이블 관리(matchLabels와 매칭)
       labels:
         app: hello
     spec:

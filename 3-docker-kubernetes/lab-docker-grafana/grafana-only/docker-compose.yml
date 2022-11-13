@@ -19,6 +19,7 @@ services:
     logging:
       driver: "json-file"
       options:
+      # 로그 파일 스펙 정의
         max-size: "8m"
         max-file: "10"
 

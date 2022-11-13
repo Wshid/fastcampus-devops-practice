@@ -10,5 +10,6 @@ spec:
     - name: http
       containerPort: 80
       protocol: TCP
+  # side-car pattern
   - name: debug
     image: posquit0/doraemon:latest
