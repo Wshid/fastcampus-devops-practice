@@ -5,6 +5,7 @@ metadata:
   labels:
     app: hello
   annotations:
+    # 어떤 Loadbalancer를 만들지 지정하는 용도로 annotation 사용
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
 spec:
   type: LoadBalancer

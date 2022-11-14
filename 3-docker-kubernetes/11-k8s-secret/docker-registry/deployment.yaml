@@ -12,6 +12,9 @@ spec:
       labels:
         app: mysql
     spec:
+      # docker-registry type을 여러개 설정 가능
+      # containers 하위의 이미지를 가져올때 사용
+      # 빈번하게 이미지를 가져올 때 유용
       imagePullSecrets:
       - name: docker-registry
       containers:

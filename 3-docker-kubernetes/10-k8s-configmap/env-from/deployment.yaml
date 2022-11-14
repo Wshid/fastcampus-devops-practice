@@ -15,6 +15,9 @@ spec:
       containers:
       - name: mysql
         image: mysql:5.7
+        # envFrom으로 데이터 로드
         envFrom:
+        # configMapRef외에도 다양하게 참조 가능
         - configMapRef:
+            # configMap의 해당 데이터를 환경변수로 모두 가져옴
             name: mysql-config

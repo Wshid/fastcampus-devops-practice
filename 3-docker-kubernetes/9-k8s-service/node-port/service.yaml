@@ -11,6 +11,7 @@ spec:
     protocol: TCP
     port: 8080
     targetPort: 80
+    # 값을 정의하지 않으면, 사용가능한 Port를 랜덤하게 사용
     # nodePort: 31000
   selector:
     app: hello

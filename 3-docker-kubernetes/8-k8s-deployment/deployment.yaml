@@ -1,4 +1,5 @@
 apiVersion: apps/v1
+# kind만 변경됨(Replicaset 설정 대비)
 kind: Deployment
 metadata:
   name: hello

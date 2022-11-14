@@ -3,12 +3,16 @@ kind: Deployment
 metadata:
   name: rolling
 spec:
+  # strategy를 지정하지 않으면 Recreate 전략 사용
   strategy:
     type: RollingUpdate
+    # maxSurge, maxUnavailable 설정
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
+  # 새로운 pod이 추가된후 ready 시간 5초
   minReadySeconds: 5
+  # 새로운 이미지로 빌드시의 리비전, 리비전 수 관리
   revisionHistoryLimit: 5
   replicas: 5
   selector:

@@ -17,6 +17,7 @@ spec:
         image: mysql:5.7
         env:
         - name: MYSQL_ROOT_PASSWORD
+        # secret의 모든 데이터가 아닌, 일부 데이터만 가져오는 형태
           valueFrom:
             secretKeyRef:
               name: mysql-secret

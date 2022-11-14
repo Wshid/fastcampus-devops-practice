@@ -18,5 +18,7 @@ spec:
         envFrom:
         - configMapRef:
             name: mysql-config
+        # mysql-secret을 등록
+            # 같은 이름의 키를 가질 경우, overwrite 됨(순서 중요)
         - secretRef:
             name: mysql-secret

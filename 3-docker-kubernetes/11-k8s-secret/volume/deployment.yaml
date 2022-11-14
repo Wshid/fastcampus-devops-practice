@@ -20,6 +20,7 @@ spec:
             name: mysql-config
         - secretRef:
             name: mysql-secret
+        # 볼륨에 따른 마운트 처리
         volumeMounts:
         - mountPath: /tmp/config
           name: mysql-config
@@ -29,6 +30,7 @@ spec:
       - name: mysql-config
         configMap:
           name: mysql-config
+      # mysql-secret의 시크릿을 볼륨 처리
       - name: mysql-secret
         secret:
           secretName: mysql-secret

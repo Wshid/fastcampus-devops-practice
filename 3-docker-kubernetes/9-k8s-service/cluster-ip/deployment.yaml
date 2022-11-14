@@ -10,6 +10,7 @@ spec:
   template:
     metadata:
       name: hello
+      # 차후 service와 동일시, 관련 트래픽을 받음
       labels:
         app: hello
     spec:

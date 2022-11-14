@@ -1,7 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  # directory로 마운트 되는 값
   name: mysql-config
+# 하위 내용들이 파일로 생성됨
+# key: filename, value: data
 data:
   MYSQL_ROOT_PASSWORD: fastcampus
   MYSQL_DATABASE: devops

@@ -1,7 +1,9 @@
+# default: core api group v1
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql-config
+# spec이 아닌 data key를 가짐
 data:
   MYSQL_ROOT_PASSWORD: fastcampus
   MYSQL_DATABASE: devops

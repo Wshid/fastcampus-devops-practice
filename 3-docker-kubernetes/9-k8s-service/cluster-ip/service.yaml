@@ -6,10 +6,14 @@ metadata:
     app: hello
 spec:
   type: ClusterIP
+  # 포트 목록 나열, ClusterIP:8080 -> PodIP:80
+  # targetPort => Container Port
   ports:
   - name: http
     protocol: TCP
     port: 8080
     targetPort: 80
+  # 서비스가 트래픽을 어디에 전달할 것인지, pod를 결정
+  # app:hello에 전달
   selector:
     app: hello

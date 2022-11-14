@@ -12,16 +12,23 @@ spec:
       labels:
         app: mysql
     spec:
+      # containers 레벨 추가
       containers:
       - name: mysql
         image: mysql:5.7
         envFrom:
         - configMapRef:
             name: mysql-config
+        # 마운트 옵션이 추가됨
         volumeMounts:
+        # /tmp/config에 mysql-volume 마운트
         - mountPath: /tmp/config
           name: mysql-config
+      # volumes 레벨 추가
+      # 해당 pod가 사용하게 될 pod 목록
       volumes:
       - name: mysql-config
+        # volume driver중 configMap을 사용
+        # secret, empDir, PVC 등 활용 가능
         configMap:
           name: mysql-config

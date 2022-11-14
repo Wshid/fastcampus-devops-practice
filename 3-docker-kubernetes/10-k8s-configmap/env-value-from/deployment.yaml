@@ -15,9 +15,12 @@ spec:
       containers:
       - name: mysql
         image: mysql:5.7
+        # env에서 정의
         env:
         - name: MYSQL_ROOT_PASSWORD
+          # configMap의 Key를 참조, 일부 데이터만 가져옴
           valueFrom:
             configMapKeyRef:
+              # mysql-config configMap의 MYSQL_ROOT_PASSWORD 참조
               name: mysql-config
               key: MYSQL_ROOT_PASSWORD

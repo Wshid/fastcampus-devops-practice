@@ -15,6 +15,7 @@ spec:
       containers:
       - name: mysql
         image: mysql:5.7
+        # 2개의 환경변수 정의
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: fastcampus
