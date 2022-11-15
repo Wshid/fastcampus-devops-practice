@@ -5,13 +5,16 @@ metadata:
   namespace: fastcampus
 spec:
   limits:
+  # 보통은 Container 레벨에서 많이 제한
   - type: Container
+    # 기본적으로 할당될 값
     default:
       memory: 128Mi
       cpu: 100m
     defaultRequest:
       memory: 64Mi
       cpu: 50m
+    # 설정할 범위
     max:
       memory: 1Gi
       cpu: 1000m

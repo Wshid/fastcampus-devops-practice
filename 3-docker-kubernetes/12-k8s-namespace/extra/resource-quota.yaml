@@ -5,8 +5,10 @@ metadata:
   namespace: fastcampus
 spec:
   hard:
+    # 총합의 양
     limits.cpu: "5000m"
     limits.memory: "8Gi"
+    # 갯수의 제한
     count/pods: 10
     count/replicationcontrollers: 10
     count/replicasets.apps: 10

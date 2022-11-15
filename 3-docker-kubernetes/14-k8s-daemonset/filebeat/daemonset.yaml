@@ -1,3 +1,4 @@
+# apps 활용
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -6,9 +7,12 @@ metadata:
   labels:
     app.kubernetes.io/name: filebeat
 spec:
+  # selector를 통해 관리하기 위한 set 확인
+  # deployment와 동일
   selector:
     matchLabels:
       app.kubernetes.io/name: filebeat
+  # Pod의 template 설정
   template:
     metadata:
       labels:
@@ -63,6 +67,7 @@ spec:
           timeoutSeconds: 5
           failureThreshold: 3
         volumeMounts:
+        # configMap의 config 마운트
         - mountPath: /usr/share/filebeat/filebeat.yml
           readOnly: true
           name: config
@@ -75,6 +80,7 @@ spec:
         - mountPath: /var/log
           readOnly: true
           name: varlog
+      # volumes 설정
       volumes:
       - name: config
         configMap:
@@ -82,12 +88,14 @@ spec:
           defaultMode: 0640
       - name: varlibdockercontainers
         hostPath:
+        # 모든 컨테이너 로그에 접근하기 위함
           path: /var/lib/docker/containers
       - name: varlog
         hostPath:
           path: /var/log
       # data folder stores a registry of read status for all files, so we don't send everything again on a Filebeat pod restart
       - name: data
+        # 없으면 만드는 옵션과 같이 설정
         hostPath:
           # When filebeat runs as non-root user, this directory needs to be writable by group (g+w).
           path: /var/lib/filebeat-data

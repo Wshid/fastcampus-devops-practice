@@ -4,6 +4,8 @@ metadata:
   name: filebeat-config
   namespace: default
 data:
+  # configmap의 키
+  # filebeat에 대한 설정 정의(filebeat 설정)
   filebeat.yml: |
     filebeat.inputs:
     - type: container

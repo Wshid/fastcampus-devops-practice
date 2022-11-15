@@ -3,7 +3,9 @@ kind: Job
 metadata:
   name: hello
 spec:
+  # 몇 번 시도할지, 몇 번 성공 시킬시
   completions: 10
+  # 동시에 얼마나 실행할지
   parallelism: 2
   template:
     spec:
@@ -11,4 +13,5 @@ spec:
       containers:
       - name: hello
         image: ubuntu:focal
+        # 경과를 확인하기 위한 sleep 설정
         command: ["sh", "-c", "sleep 2; echo Hello World!"]

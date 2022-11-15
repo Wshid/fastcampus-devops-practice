@@ -1,10 +1,17 @@
+# batch api 버전을 사용
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: hello
 spec:
+  # Deployment와 유사하게 template으로 감싸는 형태
+  ## 내부적으로 Pod을 생성하기 때문
   template:
+    # selector를 따로 지정하지 않아도 자동 설정됨
+    # 필요하다면 설정
     spec:
+      # 명시 필요, Always, OnFailure, Never
+      ## Never, OnFailure로 설정하는 것이 좋음
       restartPolicy: Never
       containers:
       - name: hello

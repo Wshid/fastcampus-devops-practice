@@ -3,8 +3,12 @@ kind: CronJob
 metadata:
   name: hello-every-minute
 spec:
+  # cron expression, 매1분마다 수행
   schedule: "*/1 * * * *"
+  # 성공한 이력은 최대 5개
   successfulJobsHistoryLimit: 5
+  # Pod Template이 아닌 Job Template
+  # Job object의 스펙을 그대로 사용
   jobTemplate:
     spec:
       template:

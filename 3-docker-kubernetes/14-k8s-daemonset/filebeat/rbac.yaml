@@ -1,3 +1,4 @@
+# 파일비트에 대한 권한 설정 파일(RBAC)
 apiVersion: v1
 kind: ServiceAccount
 metadata:
