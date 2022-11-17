@@ -7,6 +7,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
+  # host 추가
+  # host에 따라 service로 보내지도록 설정
   - host: hello.fastcampus
     http:
       paths:

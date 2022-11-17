@@ -56,7 +56,7 @@ kubectl explain pod
 - main container를 **보조하는 container와 같이 수행**
 - Use case
   - Filebeat, Fluentd와 같은 로그 에이전트로 pod 로그 수집
-  - Envoy와 같은 **프로시 서버**로 service mesh 구성
+  - Envoy와 같은 **프록시 서버**로 service mesh 구성
   - Vault agent와 같은 **기밀 데이터 전달** 목적
   - Nginx의 **설정 리로드** 역할 에이전트 구성
 

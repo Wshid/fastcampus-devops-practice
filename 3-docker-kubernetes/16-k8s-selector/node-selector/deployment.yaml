@@ -20,5 +20,6 @@ spec:
         - name: http
           containerPort: 80
           protocol: TCP
+      # team label red인 노드에 배치
       nodeSelector:
         team: red

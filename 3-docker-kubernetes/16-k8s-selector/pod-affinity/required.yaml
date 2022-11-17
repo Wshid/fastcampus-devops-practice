@@ -22,13 +22,16 @@ spec:
           protocol: TCP
       affinity:
         podAffinity:
+          # hardRule
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
+              # app key = mysql 선호
               - key: app
                 operator: In
                 values:
                 - mysql
+            # mysql node와 동일한 노드에 띄워질 것
             topologyKey: kubernetes.io/hostname
             # topologyKey: topology.kubernetes.io/zone
             # topologyKey: topology.kubernetes.io/region

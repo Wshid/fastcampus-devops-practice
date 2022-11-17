@@ -5,15 +5,19 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  # nginx className 사용
   ingressClassName: nginx
   rules:
   - http:
       paths:
+      # path=/hello의 prefix를 가지면, hello 서비스의 http port로 보내기
       - path: /hello
         pathType: Prefix
         backend:
           service:
             name: hello
+            # grafana/service.yaml에 지정된 포트
+            # port.number로 포워딩도 가능
             port:
               name: http
   - http:

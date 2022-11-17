@@ -22,9 +22,11 @@ spec:
           protocol: TCP
       affinity:
         nodeAffinity:
+          # Hard rule 
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
+            # blue 이거나 red를 선호
               - key: team
                 operator: In
                 values:

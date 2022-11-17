@@ -22,7 +22,9 @@ spec:
           protocol: TCP
       affinity:
         nodeAffinity:
+          # Soft rule
           preferredDuringSchedulingIgnoredDuringExecution:
+          # 0~100, scoring을 통해 배치 우선순위 결정
           - weight: 40
             preference:
               matchExpressions:

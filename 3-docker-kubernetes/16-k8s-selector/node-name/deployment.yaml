@@ -20,4 +20,5 @@ spec:
         - name: http
           containerPort: 80
           protocol: TCP
+      # nodeName 지정
       nodeName: minikube

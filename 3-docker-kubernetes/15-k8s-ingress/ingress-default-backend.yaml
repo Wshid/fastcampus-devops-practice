@@ -6,6 +6,8 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
+  # rule중에 아무것도 속하지 않을경우 보내기
+  # default로 보낼 곳 지정
   defaultBackend:
     service:
       name: httpd
