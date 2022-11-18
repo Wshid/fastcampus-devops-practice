@@ -4,24 +4,35 @@ kind: Kustomization
 resources:
 - deployment.yaml
 
+# k8s의 ConfigMap을 Generating
+# mysql-config, test-files의 두가지 존재
 configMapGenerator:
 - name: mysql-config
+  # key=value 형태의 환경 변수 정의, kubectl create --from-literals
+  # literals; array원소 하나가 모두 string 형태
   literals:
   - MYSQL_DATABASE=devops
+  # --from-envs
+  # mysql.envs 파일 내에 환경변수 지정
   envs:
   - mysql.env
 - name: test-files
   files:
+  # value만 존재할경우, 경로가 key가 됨
   - files/test1.txt
+  # test2.txt가 key, 이후 value
   - test2.txt=files/test2.txt
 
+# k8s의 secret을 지정
 secretGenerator:
 - name: mysql-secret
   literals:
   - MYSQL_ROOT_PASSWORD=fastcampus
 
+# configMapGenerator, secretOperator의 기본값 지정
 # These labels are added to all configmaps and secrets.
 generatorOptions:
+  # 공통적으로 추가되는 labels와 annotations
   labels:
     env: dev
   annotations:
