@@ -1,11 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+# 상위 디렉터리의 base를 base로 활용
 resources:
 - ../base
 
 namePrefix: dev-
 
+# 전략적 머지 기법
+# 패치 파일을 리스트로 받음
 patchesStrategicMerge:
 - resources.yaml
 - service.yaml

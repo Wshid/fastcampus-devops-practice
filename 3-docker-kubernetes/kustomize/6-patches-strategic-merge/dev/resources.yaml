@@ -1,4 +1,8 @@
+# apiVersion, kind, metadata를 기준으로 타켓 정의
 apiVersion: apps/v1
+# 필요한 속성들이 빠진 내용 확인
+# patch로 사용되기 때문
+# 필요한 값들만 정의
 kind: Deployment
 metadata:
   name: hello
@@ -6,6 +10,7 @@ spec:
   template:
     spec:
       containers:
+      # nginx 컨테이너를 찾아 리소스 정의
       - name: nginx
         resources:
           requests:

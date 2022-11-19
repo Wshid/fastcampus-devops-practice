@@ -1,6 +1,11 @@
+# op: operator, add, replace, remove, move 등이 존재
+# add: patch를 가할 json path를 정의
 - op: add
+  # patch를 가할 json path를 정의
+  # yaml 하위의 내용을 path 형태로 정의
   path: /spec/template/spec/containers/0/resources
   value:
+    # 해당 값이 path하위에 기입됨
     requests:
       cpu: 100m
       memory: 64Mi

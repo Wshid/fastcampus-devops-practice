@@ -6,7 +6,9 @@ resources:
 
 namePrefix: dev-
 
+# JsonPatch의 RFC 번호 포함
 patchesJson6902:
+# 타켓을 직접 명시하여 지정
 - target:
     version: v1
     kind: Deployment
