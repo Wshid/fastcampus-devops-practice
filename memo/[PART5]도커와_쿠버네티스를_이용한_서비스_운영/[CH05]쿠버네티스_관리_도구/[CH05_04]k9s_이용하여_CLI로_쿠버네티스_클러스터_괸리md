@@ -1,0 +1,54 @@
+## [CH05_04] k9s 이용하여 CLI로 쿠버네티스 클러스터 관리
+- 요새는 kubectl 보다 k9s를 더 많이 사용한다고 함
+
+### k9s 설치
+```
+brew install k9s
+```
+
+### 실습
+```bash
+which k9s
+
+# in linux, k9s bin 등록
+vim ~/.profile
+export PATH="..."
+
+# : 입력시 명령 실행라인으로 전환
+context
+```
+- `metricsServer`를 설치해야 cpu/mem 리소스 확인 가능
+
+#### Pod
+```bash
+0 # 모든 ns
+1 # default ns
+l # 로그 확인
+s # pod shell 접근
+y # yaml 파일 확인(manifest)
+e # yaml 편집, 저장시 바로 적용
+```
+```bash
+/ # 필터창 활성화
+! grafana # NOT, grafana를 제외
+-l app=grafana # app=grafana 필터링
+```
+
+#### Deployment/Service
+```bash
+#: deploy로 접근
+#: service로 접근
+#: namespace로 접근
+
+# cluster의 모든 deployment 확인
+## tree상 출력되는 개체의 y를 누르면 세부 확인 가능(ConfigMap, Secret, Pod)
+xray deployment 
+
+# service의 상세 확인, 의존성 관계 파악 가능
+xray service
+
+# 클러스터의 상태가 잘 설정되었는지 확인
+# score, color에 따라 유의 사항 파악 가능
+## enter로 세부 상황 확인
+popeye
+```
